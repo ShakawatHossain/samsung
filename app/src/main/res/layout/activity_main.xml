@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/rl_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context=".MainActivity">
+
+    <Button
+            android:id="@+id/call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="call"
+            android:layout_centerInParent="true"
+            android:text="call an kill"/>
+    <Button
+            android:id="@+id/recieveCall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="recieveCall"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/call"
+            android:text="Auto recieve!"/>
+    <Button
+            android:id="@+id/upload_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="up"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/call"
+            android:text="UP File"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="file"
+            android:layout_centerHorizontal="true"
+            android:text="go file"/>
+
+</RelativeLayout>
