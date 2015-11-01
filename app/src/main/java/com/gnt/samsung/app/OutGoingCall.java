@@ -3,6 +3,7 @@ package com.gnt.samsung.app;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.telephony.*;
 import android.telephony.PhoneStateListener;
 import android.util.Log;
@@ -19,6 +20,11 @@ public class OutGoingCall /*extends android.telephony.PhoneStateListener */{
     TelephonyManager tm;
     Context ctx;
     WritinReport write;
+    double lat1,lat2,long1,long2;
+    String start_time,end_time;
+    String start_mode,end_mode;
+    String start_strength,end_strength;
+    MyLocation myLocation;
 
     public OutGoingCall(){}
     public OutGoingCall(Context ctx){
@@ -27,11 +33,50 @@ public class OutGoingCall /*extends android.telephony.PhoneStateListener */{
         Calendar now = Calendar.getInstance();
         int date = now.get(Calendar.DAY_OF_MONTH);
         write = new WritinReport(ctx,"file"+date+".xls");
+        myLocation = new MyLocation(this.ctx);
 //        tm.listen(this, PhoneStateListener.LISTEN_CALL_STATE);
     }
+    public String phoneType(){
+        int connectionType = tm.getPhoneType();
+        if(connectionType == TelephonyManager.PHONE_TYPE_CDMA){
+            return "CDMA";
+        }else if(connectionType == TelephonyManager.PHONE_TYPE_GSM){
+            return "GSM";
+        }else if(connectionType == TelephonyManager.PHONE_TYPE_NONE){
+            return "None";
+        }else if(connectionType == TelephonyManager.PHONE_TYPE_SIP){
+            return "SIP";
+        }
+        return "Unknown";
+    }
 
+    public String strength(String mode){
+//        if(mode.equals("GSM")){
+//            if(Build.VERSION.SDK_INT>=17  && tm != null){
+//            CellInfoGsm cellInfoGsm = (CellInfoGsm)tm.getAllCellInfo().get(0);
+//            CellSignalStrengthGsm cellSignalStrengthGsm = cellInfoGsm.getCellSignalStrength();
+//            String s = String.valueOf(cellSignalStrengthGsm.getDbm());
+//            return s;
+//            }
+//        }
+//        else if(mode.equals("CDMA")){
+//            if(Build.VERSION.SDK_INT>=17 && tm != null){
+//                CellInfoCdma cellInfoCdma = (CellInfoCdma)tm.getAllCellInfo().get(0);
+//                CellSignalStrengthCdma cellSignalStrengthCdma = cellInfoCdma.getCellSignalStrength();
+//                String s = String.valueOf(cellSignalStrengthCdma.getDbm());
+//                return s;
+//            }
+//        }
+        return "Unknown";
+    }
     public void startCall(String phone){
-        Log.e("Start Ongoing call", "Called");
+        lat1 = myLocation.getLatitude();
+        long1 = myLocation.getLongitude();
+        Calendar calendar = Calendar.getInstance();
+        start_time = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY))+" : "+String.valueOf(calendar.get(Calendar.MINUTE))+" : "+String.valueOf(calendar.get(Calendar.SECOND));
+        start_mode = phoneType();
+        start_strength = strength(start_mode);
+        Log.e("Start Ongoing call", "Called @ "+start_time+" Place: "+lat1+" , "+long1+" mode: "+start_mode+" Strength: "+start_strength);
         callIntent = new Intent(Intent.ACTION_CALL)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         callIntent.setData(Uri.parse("tel:" + phone));
@@ -39,7 +84,13 @@ public class OutGoingCall /*extends android.telephony.PhoneStateListener */{
     }
 
     public boolean killCall() {
-        Log.e("Kill call", "Called");
+        lat2 = myLocation.getLatitude();
+        long2 = myLocation.getLongitude();
+        Calendar calendar = Calendar.getInstance();
+        end_time = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY))+" : "+String.valueOf(calendar.get(Calendar.MINUTE))+" : "+String.valueOf(calendar.get(Calendar.SECOND));
+        end_mode = phoneType();
+        end_strength = strength(end_mode);
+        Log.e("Start Ongoing call", "Called @ "+end_time+" Place: "+lat2+" , "+long2+" mode: "+end_mode+" Strength: "+end_strength);
         // Get the boring old TelephonyManager
         writeCallState();
         TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
@@ -92,6 +143,7 @@ public class OutGoingCall /*extends android.telephony.PhoneStateListener */{
         if(state == TelephonyManager.CALL_STATE_OFFHOOK){
             Log.d("CallState","Offhook");
             write.writeOut("outGoing","Success");
+//
         }
         else {
             Log.d("CallState",""+state);

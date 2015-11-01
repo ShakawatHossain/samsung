@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
     Intent callIntent;
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
+    MyLocation myLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +71,16 @@ public class MainActivity extends Activity {
             Log.d("Value","Got value: "+i);
         }
     }
+    public void getLocation(){
+        myLocation = new MyLocation(MainActivity.this);
+        if(!myLocation.canGetLocation){
+            myLocation.showSettingsAlert();
+        }
+    }
     public void up(View v){
         startActivity(new Intent(this,FileUploadActivity.class));
     }
+
 
 
 //    public void startCall(){
