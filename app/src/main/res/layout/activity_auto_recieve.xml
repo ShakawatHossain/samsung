@@ -14,4 +14,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+    <TableLayout
+            android:id="@+id/recieveCall_table_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+            <TextView
+                    android:text="Activate ForDuration:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size"
+                    />
+            <EditText
+                    android:id="@+id/recieve_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+        </TableRow>
+    </TableLayout>
+
 </RelativeLayout>

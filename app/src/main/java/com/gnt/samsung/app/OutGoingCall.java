@@ -95,8 +95,7 @@ public class OutGoingCall /*extends android.telephony.PhoneStateListener */{
         writeCallState();
         TelephonyManager telephonyManager = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
 
-
-        Class classTelephony = null;
+        Class classTelephony =null;
         try {
             // Get the getITelephony() method
             classTelephony = Class.forName(telephonyManager.getClass().getName());
@@ -141,13 +140,17 @@ public class OutGoingCall /*extends android.telephony.PhoneStateListener */{
     public void writeCallState(){
         int state = tm.getCallState();
         if(state == TelephonyManager.CALL_STATE_OFFHOOK){
-            Log.d("CallState","Offhook");
-            write.writeOut("outGoing","Success");
+            Log.d("CallState", "Offhook");
+            DataContainer dc = new DataContainer("OutGoing","success",start_time,end_time,start_mode,end_mode,
+                    start_strength,end_strength,lat1+","+long1,lat2+","+long2);
+            write.writeOut(dc);
 //
         }
         else {
-            Log.d("CallState",""+state);
-            write.writeOut("outGoing", "Failed");
+            Log.d("CallState", "" + state);
+            DataContainer dc = new DataContainer("outGoing", "Failed",start_time,end_time,start_mode,end_mode,
+                    start_strength,end_strength,lat1+","+long1,lat2+","+long2);
+            write.writeOut(dc);
         }
     }
 

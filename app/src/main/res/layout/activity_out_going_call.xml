@@ -110,4 +110,13 @@
             android:textSize="@dimen/text_size"
             />
 
+    <TextView
+            android:id="@+id/numberofcall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:layout_alignParentBottom="true"
+            android:textSize="30sp"
+            android:textColor="@color/brown"/>
+
 </RelativeLayout>

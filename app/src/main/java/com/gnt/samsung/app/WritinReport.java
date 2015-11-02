@@ -39,7 +39,7 @@ public class WritinReport {
         this.filename = filename;
     }
 
-    public void writeOut(String operation,String result){  //writng Report for outGoingCall...
+    public void writeOut(DataContainer dc){  //writng Report for outGoingCall...
         Workbook wb = new HSSFWorkbook();
         Cell c = null;
         CellStyle cs = wb.createCellStyle();
@@ -52,7 +52,7 @@ public class WritinReport {
         Log.d("Writing on Row: ", "" + roo);
         edit.putInt("value", roo + 1);
         edit.commit();
-        if(roo !=0){
+        if(roo > 0){
             FileInputStream fsIp = null;
             FileOutputStream fsOp = null;
             try{
@@ -62,19 +62,46 @@ public class WritinReport {
                 Sheet sheet = wb.getSheetAt(0);
                 Row row = sheet.createRow(roo);
                 c = row.createCell(0);
-                c.setCellValue(roo);
+                c.setCellValue(roo-1);
+
                 c = row.createCell(1);
-                c.setCellValue(operation);
+                c.setCellValue(dc.operation);
+
                 c = row.createCell(2);
-                c.setCellValue(result);
+                c.setCellValue(dc.result);
+
+                c = row.createCell(3);
+                c.setCellValue(dc.start_time);
+
+                c = row.createCell(4);
+                c.setCellValue(dc.end_time);
+
+                c = row.createCell(5);
+                c.setCellValue(dc.start_mode);
+
+                c = row.createCell(6);
+                c.setCellValue(dc.end_mode);
+
+                c = row.createCell(7);
+                c.setCellValue(dc.start_strength);
+
+                c = row.createCell(8);
+                c.setCellValue(dc.end_strength);
+
+                c = row.createCell(9);
+                c.setCellValue(dc.start_position);
+
+                c = row.createCell(10);
+                c.setCellValue(dc.end_position);
                 fsOp = new FileOutputStream(new File(ctx.getExternalFilesDir(null), filename));
                 wb.write(fsOp);
             }catch(FileNotFoundException ex){
                 Log.e("FileNotFoundException","Due to override xls file");
             } catch (IOException e) {
-                Log.e("FileUtils", "Error writing "+e.getMessage());}
+                Log.e("FileUtils", "Error writing "+e.getMessage());
+            }
             catch(Exception ex){
-                Log.e("Exception","Due to override xls file "+ex.getMessage());
+                Log.e("Exception","Due to override xls file " + ex.getMessage());
             }finally {
                 try {
                     if (null != fsOp)
@@ -89,20 +116,98 @@ public class WritinReport {
         Row row = sheet1.createRow(roo);
 
         c = row.createCell(0);
-        c.setCellValue(roo);
+        c.setCellValue("No");
         c.setCellStyle(cs);
 
         c = row.createCell(1);
-        c.setCellValue(operation);
+        c.setCellValue("Operation");
         c.setCellStyle(cs);
 
         c = row.createCell(2);
-        c.setCellValue(result);
+        c.setCellValue("Result");
+        c.setCellStyle(cs);
+
+        c = row.createCell(3);
+        c.setCellValue("Start_Time");
+        c.setCellStyle(cs);
+
+        c = row.createCell(4);
+        c.setCellValue("End_Time");
+        c.setCellStyle(cs);
+
+        c = row.createCell(5);
+        c.setCellValue("Start_Mode");
+        c.setCellStyle(cs);
+
+        c = row.createCell(6);
+        c.setCellValue("End_Mode");
+        c.setCellStyle(cs);
+
+        c = row.createCell(7);
+        c.setCellValue("Start_Strength");
+        c.setCellStyle(cs);
+
+        c = row.createCell(8);
+        c.setCellValue("End_Strength");
+        c.setCellStyle(cs);
+
+        c = row.createCell(9);
+        c.setCellValue("Start_Position");
+        c.setCellStyle(cs);
+
+        c = row.createCell(10);
+        c.setCellValue("End_Position");
         c.setCellStyle(cs);
 
         sheet1.setColumnWidth(0, (15 * 500));
         sheet1.setColumnWidth(1, (15 * 500));
         sheet1.setColumnWidth(2, (15 * 500));
+        sheet1.setColumnWidth(3, (15 * 500));
+        sheet1.setColumnWidth(4, (15 * 500));
+        sheet1.setColumnWidth(5, (15 * 500));
+        sheet1.setColumnWidth(6, (15 * 500));
+        sheet1.setColumnWidth(7, (15 * 500));
+        sheet1.setColumnWidth(8, (15 * 500));
+        sheet1.setColumnWidth(9, (15 * 500));
+        sheet1.setColumnWidth(10, (15 * 500));
+
+        roo = prefs.getInt("value", 0);
+        edit.putInt("value", roo + 1);
+        edit.commit();
+        row = sheet1.createRow(roo);
+        c = row.createCell(0);
+        c.setCellValue(roo-1);
+
+        c = row.createCell(1);
+        c.setCellValue(dc.operation);
+
+        c = row.createCell(2);
+        c.setCellValue(dc.result);
+
+        c = row.createCell(3);
+        c.setCellValue(dc.start_time);
+
+        c = row.createCell(4);
+        c.setCellValue(dc.end_time);
+
+        c = row.createCell(5);
+        c.setCellValue(dc.start_mode);
+
+        c = row.createCell(6);
+        c.setCellValue(dc.end_mode);
+
+        c = row.createCell(7);
+        c.setCellValue(dc.start_strength);
+
+        c = row.createCell(8);
+        c.setCellValue(dc.end_strength);
+
+        c = row.createCell(9);
+        c.setCellValue(dc.start_position);
+
+        c = row.createCell(10);
+        c.setCellValue(dc.end_position);
+
 
         File file = new File(ctx.getExternalFilesDir(null), filename);
         FileOutputStream os = null;

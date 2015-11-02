@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 
 public class OutGoingCallActivity extends Activity {
@@ -23,6 +24,7 @@ public class OutGoingCallActivity extends Activity {
     int counter=0;
     Context ctx;
     OutGoingCall out;
+    TextView numofcal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class OutGoingCallActivity extends Activity {
         duration = (EditText) findViewById(R.id.edt_call_duration);
         interval = (EditText) findViewById(R.id.edt_call_interval);
         quantity = (EditText) findViewById(R.id.edt_num_call);
+        numofcal = (TextView) findViewById(R.id.numberofcall);
     }
 
     public View.OnClickListener listener = new View.OnClickListener() {
@@ -56,6 +59,8 @@ public class OutGoingCallActivity extends Activity {
             tableLayout.postDelayed(run,delay*1000*60);         //Duration of call
             out.startCall(num);
             counter++;
+            int totalcall = Integer.parseInt(qu);
+            numofcal.setText("Call Left: "+(totalcall-counter));
         }
 
     };
@@ -85,7 +90,8 @@ public class OutGoingCallActivity extends Activity {
         public void run() {
             endcall();
             int totalcall = Integer.parseInt(qu);
-            if(totalcall != counter){
+            numofcal.setText("Call Left: "+(totalcall-counter));
+            if(totalcall > counter){
                 counter++;
                 int delay = Integer.parseInt(in);       //interval Between call
                 Log.d("Interval","call num"+counter);
@@ -93,6 +99,7 @@ public class OutGoingCallActivity extends Activity {
             }
             else {
                 Log.d("No Interval","call finished"+counter);
+                finish();
                 //finish();
             }
         }
@@ -100,9 +107,11 @@ public class OutGoingCallActivity extends Activity {
     public Runnable makecall = new Runnable() {
         @Override
         public void run() {
-                int delay = Integer.parseInt(du);
-                out.startCall(num);
-                tableLayout.postDelayed(run,delay*1000*60);     //Duration of call //value*ms*min
+            int totalcall = Integer.parseInt(qu);
+            numofcal.setText("Call Left: "+(totalcall-counter));
+            int delay = Integer.parseInt(du);
+            out.startCall(num);
+            tableLayout.postDelayed(run,delay*1000*60);     //Duration of call //value*ms*min
         }
     };
 
