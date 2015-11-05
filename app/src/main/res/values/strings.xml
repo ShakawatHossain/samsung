@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">samsung</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Stary here for auto recieve</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_filedown">FiledownActivity</string>
     <string name="title_activity_auto_recieve">AutoRecieve</string>
     <string name="title_activity_out_going_call">OutGoingCallActivity</string>
     <string name="title_activity_file_upload">FileUploadActivity</string>
+    <string name="auto_recieve_activate">Recieve Active</string>
 </resources>

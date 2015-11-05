@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         relativeLayout = (RelativeLayout) findViewById(R.id.rl_main);
         sharedPrefferenceInit();
+        getLocation();
         startActivity(new Intent(this, OutGoingCallActivity.class));
     }
 

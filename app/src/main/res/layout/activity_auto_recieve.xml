@@ -9,10 +9,6 @@
                 android:id="@+id/auto_relative"
                 tools:context="com.gnt.samsung.app.AutoRecieve">
 
-    <TextView
-            android:text="@string/hello_world"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
     <TableLayout
             android:id="@+id/recieveCall_table_layout"
@@ -24,17 +20,56 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
             <TextView
-                    android:text="Activate ForDuration:"
+                    android:text="Amount of Call:"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_size"
                     />
             <EditText
-                    android:id="@+id/recieve_duration"
+                    android:id="@+id/total_call"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="5"
+                    android:textSize="@dimen/text_size"
+                    />
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+            <TextView
+                    android:text="Gap between Incoming Call:"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size"
+                    />
+            <EditText
+                    android:id="@+id/gap_duration"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="5"
+                    android:hint="In + DU"
+                    android:textSize="@dimen/text_size"
                     />
         </TableRow>
     </TableLayout>
-
+    <Button
+            android:id="@+id/auto_activate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/auto_recieve_activate"
+            android:layout_centerInParent="true"
+            android:background="@color/green_btn"
+            android:textSize="@dimen/text_size"
+            android:padding="@dimen/text_size"
+            android:onClick="recieve"
+            />
+    <TextView
+            android:id="@+id/incomeing_call_no"
+            android:text="@string/hello_world"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/brown"
+            android:textSize="@dimen/text_size"
+            android:layout_alignParentBottom="true"/>
 </RelativeLayout>
